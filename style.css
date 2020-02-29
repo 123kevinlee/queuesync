@@ -1,0 +1,119 @@
+body {
+    margin: 0;
+	width: 100%;
+	height: 100vh;
+    color: #fff;
+    font-family: Arial, Helvetica, sans-serif;
+	background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab );
+	background-size: 400% 400%;
+	-webkit-animation: gradientBG 10s ease infinite;
+	        animation: gradientBG 10s ease infinite;
+}
+
+.header{
+    padding-top: 10%;
+    text-align: center;
+}
+
+#btn-group{
+    margin-top: 25%;
+    text-align: center;
+}
+
+.create-btn{
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    border-radius: 600px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    outline: 0;
+    background-color: #42d97c;
+    border: solid #42d97c;
+}
+
+.join-btn{
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    border-radius: 600px;
+    margin-top: 40px;
+    margin-bottom: 20px;
+    outline: 0;
+    margin-top: 0px;
+    background-color: #42d97c;
+    border: solid #42d97c;
+}
+
+@-webkit-keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+@keyframes gradientBG {
+	0% {
+		background-position: 0% 50%;
+	}
+	50% {
+		background-position: 100% 50%;
+	}
+	100% {
+		background-position: 0% 50%;
+	}
+}
+
+.form{
+    margin-top: 5%;
+    text-align: center;
+}
+
+.form button{
+    margin-top: 10px;
+}
+
+.form input{
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    border-radius: 600px;
+    margin-top: 40px;
+    outline: 0;
+}
+
+.song-list{
+    margin-left: auto;
+    margin-right: auto;
+}
+.song-list th{
+    padding-right: 40px;
+}
+.song-list tr { 
+    border: solid;
+    border-width: 1px 0;
+  }
+.song-list tr:first-child {
+    border-top: none;
+  }
+.song-list tr:last-child {
+    border-bottom: none;
+ }
