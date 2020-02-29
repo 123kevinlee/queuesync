@@ -1,0 +1,25 @@
+{
+  "name": "hacktcnjtemp",
+  "version": "1.0.0",
+  "description": "Hack TCNJ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mattkoser/HackTCNJCarQueue.git"
+  },
+  "author": "Shivam Singh",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/mattkoser/HackTCNJCarQueue/issues"
+  },
+  "homepage": "https://github.com/mattkoser/HackTCNJCarQueue#readme",
+  "dependencies": {
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "request": "^2.88.2",
+    "request-promise": "^4.2.5"
+  }
+}
