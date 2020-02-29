@@ -11,12 +11,12 @@ body {
 }
 
 .header{
-    padding-top: 10%;
+    margin-top: 5vh;
     text-align: center;
 }
 
 #btn-group{
-    margin-top: 25%;
+    margin-top: 5vh;
     text-align: center;
 }
 
@@ -79,7 +79,6 @@ body {
 }
 
 .form{
-    margin-top: 5%;
     text-align: center;
 }
 
@@ -88,7 +87,7 @@ body {
 }
 
 .form input{
-    color: #fff;
+    color:black;
     font-weight: 500;
     width: 200px;
     padding-left: 30px;
@@ -96,8 +95,9 @@ body {
     padding-top: 12.5px;
     padding-bottom: 12.5px;
     border-radius: 600px;
-    margin-top: 40px;
+    margin-top: 25px;
     outline: 0;
+    border:none
 }
 
 .song-list{
