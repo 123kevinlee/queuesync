@@ -1,5 +1,6 @@
 const Spotify = require('./spotify');
 let app = require('express')();
+var jwt = require('jsonwebtoken');
 let spotify = new Spotify();
 const dotenv = require('dotenv');
 dotenv.config();
