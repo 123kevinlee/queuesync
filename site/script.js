@@ -56,6 +56,8 @@ $(document).ready(function () {
             json: true,
             success: function (result) {
                 //alert("good");
+                result = JSON.parse(result);
+
                 if (result != undefined && result.length > 0) {
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
                 for (var i = 0; i < 5; i++) {
