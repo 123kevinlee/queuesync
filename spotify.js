@@ -218,10 +218,10 @@ module.exports = class Spotify {
                 let uri = json.context.uri;
                 if (uri != this.CURRENT_URI) {
                     if (this.TRACKS.length > 0) {
-                        let track = this.TRACKS[0];
-                        this.CURRENT_URI = track.URI;
-                        this.TRACKS[0].QUEUED = true;
                         this.TRACKS.shift();
+                        let track = this.TRACKS[1];
+                        this.CURRENT_URI = TRACKS[0].URI;
+                        this.TRACKS[1].QUEUED = true;
                         if (this.TRACKS.length > 1)
                             await this.queueSong(track.URI);
                         else
