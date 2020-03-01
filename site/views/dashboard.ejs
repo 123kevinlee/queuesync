@@ -8,17 +8,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="../../style.css">
-</head><body>
+</head>
+
+<body>
     <h1 class="header">Queue Sync</h1>
     <h3 class="header">Room code: <%=code%></h3>
     <form class="form">
-        <input class="song-input" type="text" name="track-title" placeholder="Track Title"><br>
-        <button class="join-btn" onclick="">Add</button>
+        <input class="song-input" id="songKeywords" type="text" name="track-title" placeholder="Track Title">
+        <button class="join-btn" id="search">Search</button>
         <br>
     </form>
-    <div style="text-align: center;">
+    <script src="script.js"></script>
+
+    <!--<form class="form" autocomplete="off" action="">
+        <div class="autocomplete">
+            <input id="myInput" class="song-input" type="text" name="track-title" placeholder="track title">
+            <button class="join-btn" onclick="">Add</button>
+        </div>
+    </form>
+    <script src="autocomplete.js"></script> -->
+
+
+    <!-- <div style="text-align: center;">
         <button class="edit-btn">Edit</button>
-    </div>
+    </div> -->
+    <table id="search-list" class="song-list">
+        <tr>
+            <th class="notthere">test</th>
+        </tr>
+    </table>
 
     <table class="song-list">
         <tr class="table-header">
@@ -29,7 +47,7 @@
         <tbody>
             <% var trackNum = 0; %>
             <% tracks.forEach(function(track){ %>
-              <%  trackNum++;%>
+            <%  trackNum++;%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>

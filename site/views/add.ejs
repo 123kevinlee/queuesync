@@ -9,9 +9,18 @@
     <h5 class="session-id">Queue ID: <%=code%></h5>
     <h1 class="header">Queue Sync</h1>
     <form class="form">
-        <input class="song-input" type="text" name="track-title" placeholder="Track Title"><br>
-        <button class="join-btn">Add</button>
+        <input class="song-input" id="songKeywords" type="text" name="track-title" placeholder="Track Title">
+        <button class="join-btn" id="search">Search</button>
+        <br>
     </form>
+    <script src="script.js"></script>
+
+    <table id="search-list" class="song-list">
+        <tr>
+            <th class="notthere">test</th>
+        </tr>
+    </table>
+
     <table class="song-list">
         <tr class="table-header">
             <th></th>
@@ -21,7 +30,7 @@
         <tbody>
             <% let trackNum = 0; %>
             <% tracks.forEach(function(track){ %>
-                <%trackNum++%>
+            <%trackNum++%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>

@@ -31,6 +31,10 @@ button:hover {
     text-align: center;
 }
 
+.notthere {
+    color: transparent;
+}
+
 .create-btn {
     cursor: pointer;
     color: #fff;
