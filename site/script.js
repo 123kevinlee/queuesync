@@ -2,7 +2,6 @@ $(document).ready(function () {
     $("#search").click(function (e) {
         var queryString = document.getElementById("songKeywords").value;
         var code = document.getElementById("code").innerText.substring(10);
-        code = "o8Tzfdkd";
         alert("https://queuesync.tech/get-songs?room-code=" + code + "&query=" + queryString);
         e.preventDefault();
         $.ajax({
