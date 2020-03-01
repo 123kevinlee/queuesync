@@ -11,7 +11,7 @@ module.exports = class Spotify {
         this.ENCODED = base64data;
         this.REDIRECT_URI = process.env.REDIRECT_URI;
         this.SCOPES = process.env.SCOPES;
-        setInterval(sendEmail, 9*1000);
+        setInterval(this.checkToChange, 9*1000);
     }
 
     setAccessToken(access_token) {
@@ -215,7 +215,7 @@ module.exports = class Spotify {
     
             try {
                 let json = await rp.put(options);
-                
+                console.log(json);
             } catch (e) {
                 console.log(e);
                 if (e.statusCode == 401) {
