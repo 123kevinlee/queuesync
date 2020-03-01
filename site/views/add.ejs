@@ -1,4 +1,9 @@
-<% include partials/header %>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style.css">
+</head>
 
 <body>
     <h5 class="session-id">Queue ID: <%=code%></h5>
@@ -15,7 +20,8 @@
         </tr>
         <tbody>
             <% let trackNum = 0; %>
-            <% tracks.forEach(function(track){ trackNum++%>
+            <% tracks.forEach(function(track){ %>
+                <%trackNum++%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>

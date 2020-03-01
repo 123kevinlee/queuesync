@@ -12,7 +12,15 @@ app.use(cookieParser());
 app.use(express.static('site/'));
 app.use(express.static('site/partials/'));
 app.get('/', function (req, res) {
-    res.sendFile(path.join(__dirname + "/site/landing.html"));
+    let room_code = req.query.code;
+    if (!room_code)
+        res.sendFile(path.join(__dirname + "/site/landing.html"));
+    else {
+        res.render(path.join(__dirname, "/site/views/add.ejs"), {
+            tracks:[],
+            code: room_code
+        });
+    }
 });
 app.set('view engine', 'ejs');
 
@@ -33,9 +41,10 @@ app.get('/callback', async function (req, res) {
 });
 
 app.get('/add', async function (req,res) {
+    let room_code = res.locals.code;
     res.render(path.join(__dirname, "/site/views/add.ejs"), {
         tracks:[],
-        code: "12345"
+        code: room_code
     });
 });
 
