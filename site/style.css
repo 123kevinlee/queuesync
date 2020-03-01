@@ -176,6 +176,23 @@ button:hover {
     width: 5vh;
 }
 
+.song-list tr .add-button {
+    font-size: 20px;
+    color: white;
+    width: 1vh;
+    padding-left: 2vh;
+}
+
+.song-list a {
+    color: #42d97c;
+}
+
+.song-list a:hover {
+    color: #c8ffdd;
+}
+
+
+
 @media screen and (max-width: 680px) {
     .form input {
         width: 200px;
