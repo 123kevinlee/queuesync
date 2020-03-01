@@ -118,6 +118,10 @@ button:hover {
     margin-top: 10px;
 }
 
+input::placeholder {
+    text-align: center;
+}
+
 .song-input {
     color: black;
     font-weight: 500;
