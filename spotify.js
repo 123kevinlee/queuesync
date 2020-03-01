@@ -13,6 +13,36 @@ module.exports = class Spotify {
         this.SCOPES = process.env.SCOPES;
     }
 
+    setAccessToken(access_token) {
+        this.ACCESS_TOKEN = access_token;
+    }
+
+    setRefreshToken(refresh_token) {
+        this.REFRESH_TOKEN = refresh_token;
+    }
+
+    async refreshToken() {
+        let refresh_token = this.REFRESH_TOKEN;
+        var authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
+            form: {
+                refresh_token: refresh_token,
+                grant_type: 'refresh_token'
+            },
+            headers: {
+                'Authorization': 'Basic ' + this.ENCODED,
+            },
+            json: true
+        };
+        try {
+            let jsonU = await rp.post(authOptions);
+            let json = JSON.parse(jsonU);
+            return json;
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     getOauth2URL() {
         let url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${this.CLIENT_ID}&scope=${encodeURIComponent(this.SCOPES)}&redirect_uri=${encodeURIComponent(this.REDIRECT_URI)}`;
         return url;
@@ -25,28 +55,54 @@ module.exports = class Spotify {
 
     async getTokens(authorization_code) {
         let url = 'https://accounts.spotify.com/api/token';
-        let options = {
-            uri: url,
-            header: {
-                "Content-Type": "application/x-www-form-urlencoded",
-            },
-            body: {
-                "client_id": this.CLIENT_ID,
-                "client_secret": this.CLIENT_SECRET,
-                client_id: this.CLIENT_ID,
-                client_secret: this.CLIENT_SECRET
-            },
+
+        var authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
             form: {
-                grant_type: 'authorization_code',
                 code: authorization_code,
                 redirect_uri: this.REDIRECT_URI,
-                client_id: this.CLIENT_ID,
-                client_secret: this.CLIENT_SECRET
-            }
+                grant_type: 'authorization_code'
+            },
+            headers: {
+                'Authorization': 'Basic ' + this.ENCODED,
+            },
+            json: true
         };
-        let jsonU = await rp.post(options).catch(e=> console.log(e));
-        let json = JSON.parse(jsonU);
+
+        let json = await rp.post(authOptions).catch(e => console.log(e));
+        //let json = JSON.parse(jsonU);
         console.log(json);
         return json;
+    }
+
+    async findSongs(queryString) {
+        let json = await this.query('search',
+                `q=${queryString}&type=track`,
+            );
+        if (json) {
+            return json.tracks.items;
+        } else 
+            return null;
+    }
+
+    async query(path, form) {
+        let url = 'https://api.spotify.com/v1/' + path+"?"+form;
+        var options = {
+            url: url,
+            headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
+            json: true
+        };
+
+        try {
+            let json = await rp.get(options);
+            return json;
+        } catch (e) {
+            console.log(e);
+            if (e.statusCode == 401) {
+                await this.refreshToken();
+                return this.query(path, form)
+            }
+            return null;
+        }
     }
 }
