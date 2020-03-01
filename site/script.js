@@ -24,6 +24,10 @@ $(document).ready(function () {
         });
     });
 
+    $("search-form").click(function (e) {
+        e.preventDefault();
+    });
+
     function addSong(code, songID) {
         $.post("https://queuesync.tech/add-songs", {
                 room_code: code,
