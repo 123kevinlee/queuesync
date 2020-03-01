@@ -1,3 +1,6 @@
+<!DOCTYPE html>
+<html>
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -16,18 +19,31 @@
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="autocomplete.css">
 </head>
 
 <body>
-    <h5 class="session-id" id="code">Room Code: <%=code%></h5>
     <h1 class="header">Queue Sync</h1>
+    <h3 class="header" id="code">Room code: <%=code%></h3>
     <div class="form">
         <input class="song-input" id="songKeywords" type="text" name="track-title" placeholder="Track Title">
         <button class="join-btn" id="search">Search</button>
         <br>
-    </div>
+    </form>
     <script src="script.js"></script>
 
+    <!--<form class="form" autocomplete="off" action="">
+        <div class="autocomplete">
+            <input id="myInput" class="song-input" type="text" name="track-title" placeholder="track title">
+            <button class="join-btn" onclick="">Add</button>
+        </div>
+    </form>
+    <script src="autocomplete.js"></script> -->
+
+
+    <!-- <div style="text-align: center;">
+        <button class="edit-btn">Edit</button>
+    </div> -->
     <table id="search-list" class="song-list">
         <tr>
             <th class="notthere">test</th>
@@ -41,9 +57,9 @@
             <th>Artist</th>
         </tr>
         <tbody>
-            <% let trackNum = 0; %>
+            <% var trackNum = 0; %>
             <% tracks.forEach(function(track){ %>
-            <%trackNum++%>
+            <%  trackNum++;%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>
