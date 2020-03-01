@@ -1,6 +1,14 @@
-<% include partials/header %>
+<!-- views/pages/about.ejs -->
 
-<body>
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../../style.css">
+</head><body>
     <h1 class="header">Queue Sync</h1>
     <h3 class="header">Room code: <%=code%></h3>
     <form class="form">
@@ -19,8 +27,9 @@
             <th>Artist</th>
         </tr>
         <tbody>
-            <% int trackNum = 0; %>
-            <% tracks.forEach(function(track){ i++%>
+            <% var trackNum = 0; %>
+            <% tracks.forEach(function(track){ %>
+              <%  trackNum++;%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>

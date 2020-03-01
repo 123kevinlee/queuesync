@@ -14,8 +14,8 @@
             <th>Artist</th>
         </tr>
         <tbody>
-            <% int trackNum = 0; %>
-            <% tracks.forEach(function(track){ i++%>
+            <% let trackNum = 0; %>
+            <% tracks.forEach(function(track){ trackNum++%>
             <tr>
                 <th><%=trackNum%></th>
                 <th><%= track.title %>

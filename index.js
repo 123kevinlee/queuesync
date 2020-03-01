@@ -1,17 +1,20 @@
 const Spotify = require('./spotify');
-let app = require('express')();
+let express = require('express');
+let app = express();
 var jwt = require('jsonwebtoken');
 let spotify = new Spotify();
 const dotenv = require('dotenv');
 var cookieParser = require('cookie-parser')
 dotenv.config();
 const private_key = process.env.PRIVATE_KEY;
-
+const path = require('path');
 app.use(cookieParser());
-
+app.use(express.static('site/'));
+app.use(express.static('site/partials/'));
 app.get('/', function (req, res) {
-    console.log('Got here');
+    res.sendFile(path.join(__dirname + "/site/landing.html"));
 });
+app.set('view engine', 'ejs');
 
 app.get('/login', async function (req, res) {
     res.redirect(spotify.getOauth2URL());
@@ -29,19 +32,39 @@ app.get('/callback', async function (req, res) {
     res.redirect('/dashboard');
 });
 
+app.get('/add', async function (req,res) {
+    res.render(path.join(__dirname, "/site/views/add.ejs"), {
+        tracks:[],
+        code: "12345"
+    });
+});
+
+app.get('/search', async function (req,res) {
+    res.render(path.join(__dirname, "/site/views/dashboard.ejs"), {
+        tracks: [],
+        code: "1234"
+    });
+});
+
 app.get('/dashboard', async function (req, res) {
-    let jwt = req.cookies.jwt;
-    let data = decryptJWT(jwt);
-    if (req.query.q) {
-        let queryString = req.query.q;
-        let json = await spotify.findSongs(queryString);
-        res.send(json);
-    } else
-        if (data) {
-            res.send(data);
-        } else {
-            res.redirect('login');
-        }
+    let code = makeid(8);
+    let tracks = [];
+    res.render(path.join(__dirname, "/site/views/dashboard.ejs"), {
+        code: code,
+        tracks: tracks
+    });
+    // let jwt = req.cookies.jwt;
+    // let data = decryptJWT(jwt);
+    // if (req.query.q) {
+    //     let queryString = req.query.q;
+    //     let json = await spotify.findSongs(queryString);
+    //     res.send(json);
+    // } else
+    //     if (data) {
+    //         res.send(data);
+    //     } else {
+    //         res.redirect('login');
+    //     }
 });
 
 function decryptJWT(token) {
@@ -57,3 +80,14 @@ function decryptJWT(token) {
 
 app.listen(80);
 app.listen(443);
+
+function makeid(length) {
+    var result           = '';
+    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    }
+    return result;
+}
+
