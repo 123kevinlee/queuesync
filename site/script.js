@@ -1,11 +1,24 @@
 function addSong(code, songID) {
-    $.post("https://queuesync.tech/add-songs", {
-            room_code: code,
-            uri: songID
-        },
-        function (data, status) {
-            console.log("Sent!");
-        });
+var formData = {
+    room_code: code,
+    uri: songID
+}; //Array 
+ 
+$.ajax({
+    url : "https://queuesync.tech/add-songs",
+    type: "POST",
+    data : formData,
+    success: function(data, textStatus, jqXHR)
+    {
+        alert("Sent!");
+        //data - response from server
+    },
+    error: function (jqXHR, textStatus, errorThrown)
+    {
+        console.log("Error!");
+    }
+});
+
 }
 
 $(document).ready(function () {
