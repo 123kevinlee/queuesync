@@ -4,6 +4,7 @@ $(document).ready(function () {
         var code = document.getElementById("code").innerText.substring(10);
         alert("https://queuesync.tech/get-songs?room-code=" + code + "&query=" + queryString);
         e.preventDefault();
+        // here
         $.ajax({
             type: "GET",
             url: "https://queuesync.tech/get-songs?room_code=" + code + "&query=" + queryString,
