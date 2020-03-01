@@ -1,3 +1,13 @@
+function addSong(code, songID) {
+    $.post("https://queuesync.tech/add-songs", {
+            room_code: code,
+            uri: songID
+        },
+        function (data, status) {
+            console.log("Sent!");
+        });
+}
+
 $(document).ready(function () {
     $("#search").click(function (e) {
         var queryString = document.getElementById("songKeywords").value;
@@ -27,16 +37,6 @@ $(document).ready(function () {
     $("search-form").click(function (e) {
         e.preventDefault();
     });
-
-    function addSong(code, songID) {
-        $.post("https://queuesync.tech/add-songs", {
-                room_code: code,
-                uri: songID
-            },
-            function (data, status) {
-                console.log("Sent!");
-            });
-    }
 
     // $('#search-list').on('click', 'a', function () {
     //     var table = $("search-list");
