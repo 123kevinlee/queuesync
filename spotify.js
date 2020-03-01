@@ -217,7 +217,7 @@ module.exports = class Spotify {
             };
 
             try {
-                let json = await rp.put(options);
+                let json = await rp.get(options);
                 let uri = json.context.uri;
                 if (uri != this.CURRENT_URI) {
                     if (this.TRACKS.length > 0) {
