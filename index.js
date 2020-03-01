@@ -117,6 +117,7 @@ app.get('/get-songs', async function (req,res) {
 
 app.post('/add-song', async function (req,res) {
     let room_code = req.query.room_code;
+    console.log("Room Code: "+ room_code);
     let session = findSession(room_code);
     if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
     let title = req.query.title;
