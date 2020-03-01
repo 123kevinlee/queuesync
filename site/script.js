@@ -61,7 +61,7 @@ $(document).ready(function () {
                 document.getElementById('current').innerHTML = tableHtml;
             },
             error: function (result) {
-                alert('Error');
+                //alert('Error');
             }
         });
         await sleep(5000);
