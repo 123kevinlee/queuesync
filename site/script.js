@@ -64,7 +64,7 @@ $(document).ready(function () {
                 alert('Error');
             }
         });
-        sleep(5000);
+        await sleep(5000);
     }
     }
 
