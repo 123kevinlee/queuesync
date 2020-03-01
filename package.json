@@ -17,11 +17,13 @@
   },
   "homepage": "https://github.com/mattkoser/HackTCNJCarQueue#readme",
   "dependencies": {
+    "body": "^5.1.0",
     "cookie-parser": "^1.4.4",
     "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "jsonwebtoken": "^8.5.1",
+    "parser": "^0.1.4",
     "request": "^2.88.2",
     "request-promise": "^4.2.5"
   }

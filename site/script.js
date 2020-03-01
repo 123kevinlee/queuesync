@@ -1,13 +1,15 @@
-function addSong(code, songID) {
+function addSong(code, songID, title, authors) {
 var formData = {
     room_code: code,
-    uri: songID
+    uri: songID,
+    title: title,
+    authors: authors
 }; //Array 
  
 $.ajax({
     processData: false,
-contentType: false,
-    url : "https://queuesync.tech/add-songs",
+    contentType: false,
+    url : "https://queuesync.tech/add-song",
     type: "POST",
     data : formData,
     success: function(data, textStatus, jqXHR)
@@ -39,7 +41,7 @@ $(document).ready(function () {
                 alert("good");
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
                 for (var i = 0; i < 5; i++) {
-                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th><th class=\"add-button\" onclick = \"addSong(code,\'" + result[i].uri + "\')\"><a href=\"#\"><span class=\"glyphicon glyphicon-plus\"></span></a></th></tr>";
+                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th><th class=\"add-button\" onclick = \"addSong(\'" + code + "\',\'" + result[i].uri + "\','" + result[i].uri + "\',\'" + result[i].uri + "\')\"><a href=\"#\"><span class=\"glyphicon glyphicon-plus\"></span></a></th></tr>";
                 }
                 document.getElementById('search-list').innerHTML = tableHtml;
             },

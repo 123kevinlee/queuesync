@@ -14,7 +14,11 @@ let sessions = [];
 app.use(cookieParser());
 app.use(express.static('site/'));
 app.use(express.static('site/partials/'));
-
+var bodyParser = require('body-parser');
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded());
+// in latest body-parser use like below.
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get('/', function (req, res) {
     let room_code = req.query.code;
@@ -116,13 +120,13 @@ app.get('/get-songs', async function (req,res) {
 });
 
 app.post('/add-song', async function (req,res) {
-    let room_code = req.query.room_code;
+    let room_code = req.body.room_code;
     console.log("Room Code: "+ room_code);
     let session = findSession(room_code);
     if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
-    let title = req.query.title;
-    let authors = req.query.authors;
-    let uri = req.query.uri;
+    let title = req.body.title;
+    let authors = req.body.authors;
+    let uri = req.body.uri;
     session.addTrack(title, authors, uri);
     res.status(200).send("Ok!");
 });
