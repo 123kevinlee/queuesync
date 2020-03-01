@@ -93,7 +93,7 @@ app.get('/tracks-playing', async function (req,res) {
     let room_code = req.query.room_code;
     let session = findSession(room_code);
     if (!session) res.status(400).send("There is no room with that code!");
-    res.send(session.spotify.TRACKS);
+    res.send(JSON.stringify(session.spotify.TRACKS));
 });
 
 app.get('/get-songs', async function (req,res) {
