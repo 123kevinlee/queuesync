@@ -8,7 +8,7 @@ dotenv.config();
 const private_key = process.env.PRIVATE_KEY;
 const path = require('path');
 const Track = require('./track');
-
+const Session = require('./session');
 let sessions = [];
 
 app.use(cookieParser());
