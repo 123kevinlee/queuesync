@@ -231,7 +231,6 @@ module.exports = class Spotify {
                     }
                 }
             }
-                console.log(json);
             } catch (e) {
                 console.log(e);
                 if (e.statusCode == 401) {
