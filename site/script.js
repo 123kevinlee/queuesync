@@ -29,7 +29,7 @@ $(document).ready(function () {
     $("#search").click(function (e) {
         var queryString = document.getElementById("songKeywords").value;
         var code = document.getElementById("code").innerText.substring(11);
-        alert("https://queuesync.tech/get-songs?room-code=" + code + "&query=" + queryString);
+        //alert("https://queuesync.tech/get-songs?room-code=" + code + "&query=" + queryString);
         e.preventDefault();
         // here
         $.ajax({
@@ -38,7 +38,7 @@ $(document).ready(function () {
             // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
             json: true,
             success: function (result) {
-                alert("good");
+                //alert("good");
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
                 for (var i = 0; i < 5; i++) {
                     tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th><th class=\"add-button\" onclick = \"addSong(\'" + code + "\',\'" + result[i].uri + "\','" + result[i].uri + "\',\'" + result[i].uri + "\')\"><a href=\"#\"><span class=\"glyphicon glyphicon-plus\"></span></a></th></tr>";
