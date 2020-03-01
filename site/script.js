@@ -60,7 +60,7 @@ $(document).ready(function () {
 
                 if (result != undefined && result.length > 0) {
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
-                for (var i = 0; i < 5; i++) {
+                for (var i = 0; i < result.length; i++) {
                     tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].TITLE + "</th><th>" + result[i].AUTHORS + "</th></tr>";
                 }
                 document.getElementById('current').innerHTML = tableHtml;
