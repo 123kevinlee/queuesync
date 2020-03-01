@@ -16,6 +16,10 @@ button:hover {
     border: solid #31b363;
 }
 
+.notthere {
+    color: transparent;
+}
+
 .session-id {
     text-align: right;
     padding: 25px;
