@@ -60,9 +60,11 @@ app.get('/add', async function (req,res) {
 });
 
 app.get('/search', async function (req,res) {
+    let room_code = req.query.room_code;
+    let tracks = [];
     res.render(path.join(__dirname, "/site/views/dashboard.ejs"), {
-        tracks: [],
-        code: "1234"
+        code: room_code,
+        tracks: tracks
     });
 });
 
@@ -166,4 +168,4 @@ async function checkSessions() {
         await sessions[i].spotify.checkToChange();
     }
 }
-setInterval(checkSessions, 9*1000);
+setInterval(checkSessions, 5*1000);
