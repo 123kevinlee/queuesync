@@ -206,14 +206,11 @@ module.exports = class Spotify {
     async checkToChange() {
         if (this.ACCESS_TOKEN && this.REFRESH_TOKEN) {
             let track = this.TRACKS[0];
-            let url = 'https://api.spotify.com/v1/me/player';
+            let url = 'https://api.spotify.com/v1/me/player?market=ES';
             var options = {
                 url: url,
                 headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
                 json: true,
-                form: {
-                    market: 'ES'
-                }
             };
 
             try {
