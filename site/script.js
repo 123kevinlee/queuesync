@@ -24,7 +24,7 @@ $(document).ready(function () {
                 alert("good");
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
                 for (var i = 0; i < 5; i++) {
-                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th><th class=\"add-button\" onclick = \"addSong(code,\"" + result[i].uri + "\")\"><a href=\"#\"><span class=\"glyphicon glyphicon-plus\"></span></a></th></tr>";
+                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th><th class=\"add-button\" onclick = \"addSong(code,\'" + result[i].uri + "\')\"><a href=\"#\"><span class=\"glyphicon glyphicon-plus\"></span></a></th></tr>";
                 }
                 document.getElementById('search-list').innerHTML = tableHtml;
             },
