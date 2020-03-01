@@ -61,7 +61,7 @@ $(document).ready(function () {
                 if (result != undefined && result.length > 0) {
                 var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
                 for (var i = 0; i < 5; i++) {
-                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th></tr>";
+                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].TITLE + "</th><th>" + result[i].AUTHORS + "</th></tr>";
                 }
                 document.getElementById('current').innerHTML = tableHtml;
             }
