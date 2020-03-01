@@ -46,6 +46,8 @@ $(document).ready(function () {
     });
 
     async function updatePlaying() {
+        var code = document.getElementById("code").innerText.substring(11);
+
         while (true) {
         $.ajax({
             type: "GET",
