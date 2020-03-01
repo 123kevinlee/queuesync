@@ -11,6 +11,7 @@ module.exports = class Spotify {
         this.ENCODED = base64data;
         this.REDIRECT_URI = process.env.REDIRECT_URI;
         this.SCOPES = process.env.SCOPES;
+        this.CURRENT_URI = "";
         this.TRACKS = [];
     }
 
@@ -77,16 +78,16 @@ module.exports = class Spotify {
 
     async findSongs(queryString) {
         let json = await this.query('search',
-                `q=${queryString}&type=track`,
-            );
+            `q=${queryString}&type=track`,
+        );
         if (json) {
             return json.tracks.items;
-        } else 
+        } else
             return null;
     }
 
     async query(path, form) {
-        let url = 'https://api.spotify.com/v1/' + path+"?"+form;
+        let url = 'https://api.spotify.com/v1/' + path + "?" + form;
         var options = {
             url: url,
             headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
@@ -108,12 +109,13 @@ module.exports = class Spotify {
 
     async changeSong(song_uri) {
         let url = 'https://api.spotify.com/v1/me/player/play';
+        let uri = song_uri.URI;
         var options = {
             url: url,
             headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
             json: true,
             json: {
-                uris: [song_uri]
+                uris: [uri]
             }
         };
 
@@ -132,18 +134,16 @@ module.exports = class Spotify {
     }
 
     async queueSong(song_uri) {
-        let url = 'https://api.spotify.com/v1/me/player/add-to-queue';
+        let uri = song_uri.URI;
+        let url = 'https://api.spotify.com/v1/me/player/add-to-queue?uri=' + uri;
         var options = {
             url: url,
             headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
             json: true,
-            form: {
-                uris: [song_uri]
-            }
         };
 
         try {
-            let json = await rp.put(options);
+            let json = await rp.post(options);
             if (json) return json;
             return null;
         } catch (e) {
@@ -205,7 +205,6 @@ module.exports = class Spotify {
 
     async checkToChange() {
         if (this.ACCESS_TOKEN && this.REFRESH_TOKEN) {
-            let track = this.TRACKS[0];
             let url = 'https://api.spotify.com/v1/me/player?market=ES';
             var options = {
                 url: url,
@@ -215,22 +214,29 @@ module.exports = class Spotify {
 
             try {
                 let json = await rp.get(options);
-                if (json.context) {
-                let uri = json.context.uri;
-                if (uri != this.CURRENT_URI) {
-                    if (this.TRACKS.length > 0) { 
-                        let track = this.TRACKS[2];
-                        this.CURRENT_URI = TRACKS[1].URI;
-                        this.TRACKS[1].QUEUED = true;
-                        if (this.TRACKS.length > 1) {
-                            this.TRACKS.shift();
-                            await this.queueSong(track.URI);
+                let help = await rp.get('https://api.spotify.com/v1/me/player?market=ES', {
+                    headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
+                    json: true,
+                });
+                if (json.item) {
+                    let uri = json.item.uri;
+                    if (uri != this.CURRENT_URI) {
+                        if (this.TRACKS.length > 0) {
+                            if (this.CURRENT_URI != "") {
+                                this.TRACKS.shift();
+                                this.CURRENT_URI = uri;
+                                this.TRACKS[1].QUEUED = true;
+                                if (this.TRACKS.length >1) {
+                                let track = this.TRACKS[1];
+                                await this.queueSong(track.URI);
+                                }
+                            } else {
+                                await this.queueSong(this.TRACKS[0]);
+                                this.TRACKS.shift();
+                            }
                         }
-                        else
-                            await this.changeSong(track.URI);
                     }
                 }
-            }
             } catch (e) {
                 console.log(e);
                 if (e.statusCode == 401) {
@@ -239,5 +245,5 @@ module.exports = class Spotify {
                 return null;
             }
         }
-     }
+    }
 }
