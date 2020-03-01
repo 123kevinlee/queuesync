@@ -46,6 +46,7 @@ $(document).ready(function () {
     });
 
     async function updatePlaying() {
+        while (true) {
         $.ajax({
             type: "GET",
             url: "https://queuesync.tech/tracks-playing?room_code=" + code,
@@ -64,7 +65,10 @@ $(document).ready(function () {
             }
         });
         sleep(5000);
-    }
+}    }
+updatePlaying();
+
+    
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
