@@ -93,7 +93,7 @@ app.get('/get-songs', async function (req,res) {
     let room_code = req.query.room_code;
     let query = req.query.query;
     let session = findSession(room_code);
-    let tracks = session.findSongs();
+    let tracks = session.findSongs(query);
     return tracks;
 });
 
