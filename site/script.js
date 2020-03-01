@@ -5,6 +5,8 @@ var formData = {
 }; //Array 
  
 $.ajax({
+    processData: false,
+contentType: false,
     url : "https://queuesync.tech/add-songs",
     type: "POST",
     data : formData,
