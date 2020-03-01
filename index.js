@@ -161,7 +161,7 @@ function findSession(room_code) {
     return null;
 }
 
-function checkSessions() {
+async function checkSessions() {
     for (let i = 0; i < sessions.length; i++) {
         await sesions[i].spotify.checkToChange();
     }
