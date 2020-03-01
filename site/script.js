@@ -1,25 +1,15 @@
 function addSong(code, songID, title, authors) {
-var formData = {
-    room_code: code,
-    uri: songID,
-    title: title,
-    authors: authors
-}; //Array 
- 
+
 $.ajax({
-    processData: false,
-    contentType: false,
-    url : "https://queuesync.tech/add-song",
-    type: "POST",
-    data : formData,
-    success: function(data, textStatus, jqXHR)
-    {
+    type: "GET",
+    url: "https://f9099312.ngrok.io/add-song?room_code=" + code + "&uri=" + songID + "&title="+ title + "&authors="+ authors,
+    // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
+    json: true,
+    success: function (result) {
         alert("Sent!");
-        //data - response from server
     },
-    error: function (jqXHR, textStatus, errorThrown)
-    {
-        console.log("Error!");
+    error: function (result) {
+        alert('Error');
     }
 });
 
@@ -34,7 +24,7 @@ $(document).ready(function () {
         // here
         $.ajax({
             type: "GET",
-            url: "https://queuesync.tech/get-songs?room_code=" + code + "&query=" + queryString,
+            url: "https://f9099312.ngrok.io/get-songs?room_code=" + code + "&query=" + queryString,
             // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
             json: true,
             success: function (result) {

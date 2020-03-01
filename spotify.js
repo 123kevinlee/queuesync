@@ -213,7 +213,7 @@ module.exports = class Spotify {
                 headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
                 json: true,
             };
-    
+
             try {
                 let json = await rp.put(options);
                 let uri = json.context.uri;
