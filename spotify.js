@@ -12,7 +12,6 @@ module.exports = class Spotify {
         this.REDIRECT_URI = process.env.REDIRECT_URI;
         this.SCOPES = process.env.SCOPES;
         this.TRACKS = [];
-        setInterval(this.checkToChange, 9*1000);
     }
 
     setAccessToken(access_token) {
