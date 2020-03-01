@@ -94,7 +94,7 @@ app.get('/get-songs', async function (req,res) {
     let room_code = req.query.room_code;
     let query = req.query.query;
     let session = findSession(room_code);
-    let tracks = session.findSongs(query);
+    let tracks = await session.spotify.findSongs(query);
     return tracks;
 });
 
