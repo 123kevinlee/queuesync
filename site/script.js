@@ -65,8 +65,8 @@ $(document).ready(function () {
             }
         });
         sleep(5000);
-}    }
-updatePlaying();
+    }
+    }
 
     
 
