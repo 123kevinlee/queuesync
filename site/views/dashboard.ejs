@@ -50,13 +50,17 @@
         </tr>
     </table>
 
-    <table class="song-list">
+    <table id="current" class="song-list">
         <tr class="table-header">
             <th></th>
             <th>Track</th>
             <th>Artist</th>
         </tr>
         <tbody>
+            <%>(async function() { while(true){ %?
+            <%> await updatePlaying() %>
+            <% } })();  %>
+
             <% var trackNum = 0; %>
             <% tracks.forEach(function(track){ %>
             <%  trackNum++;%>
