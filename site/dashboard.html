@@ -15,6 +15,7 @@
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
         integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous">
     </script>
+    <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="autocomplete.css">
@@ -22,12 +23,13 @@
 
 <body>
     <h1 class="header">Queue Sync</h1>
-    <h3 class="header">Room code: 1234</h3>
+    <h3 class="header" id="code">Room code: 1234</h3>
     <form class="form">
-        <input class="song-input" type="text" name="track-title" placeholder="Track Title"><br>
-        <button class="join-btn" onclick="">Add</button>
+        <input class="song-input" id="songKeywords" type="text" name="track-title" placeholder="Track Title">
+        <button class="join-btn" id="search">Search</button>
         <br>
     </form>
+    <script src="script.js"></script>
 
     <!--<form class="form" autocomplete="off" action="">
         <div class="autocomplete">
@@ -38,9 +40,12 @@
     <script src="autocomplete.js"></script> -->
 
 
-    <div style="text-align: center;">
+    <!-- <div style="text-align: center;">
         <button class="edit-btn">Edit</button>
-    </div>
+    </div> -->
+    <table class="search-list">
+
+    </table>
 
     <!-- last col is del button -->
     <table class="song-list">
