@@ -2,7 +2,7 @@ function addSong(code, songID, title, authors) {
 
 $.ajax({
     type: "GET",
-    url: "https://f9099312.ngrok.io/add-song?room_code=" + code + "&uri=" + songID + "&title="+ title + "&authors="+ authors,
+    url: "https://queuesync.tech/add-song?room_code=" + code + "&uri=" + songID + "&title="+ title + "&authors="+ authors,
     // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
     json: true,
     success: function (result) {
@@ -24,7 +24,7 @@ $(document).ready(function () {
         // here
         $.ajax({
             type: "GET",
-            url: "https://f9099312.ngrok.io/get-songs?room_code=" + code + "&query=" + queryString,
+            url: "https://queuesync.tech/get-songs?room_code=" + code + "&query=" + queryString,
             // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
             json: true,
             success: function (result) {
