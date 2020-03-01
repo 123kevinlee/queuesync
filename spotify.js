@@ -11,6 +11,7 @@ module.exports = class Spotify {
         this.ENCODED = base64data;
         this.REDIRECT_URI = process.env.REDIRECT_URI;
         this.SCOPES = process.env.SCOPES;
+        this.TRACKS = [];
         setInterval(this.checkToChange, 9*1000);
     }
 
@@ -215,12 +216,21 @@ module.exports = class Spotify {
     
             try {
                 let json = await rp.put(options);
+                let uri = json.context.uri;
+                if (uri != this.CURRENT_URI) {
+                    if (tracks.length > 0) {
+                        let track = this.TRACKS[0];
+                        this.CURRENT_URI = track.URI;
+                        this.TRACKS[0].QUEUED = true;
+                        this.TRACKS.shift();
+                        await this.queueSong(track.URI);
+                    }
+                }
                 console.log(json);
             } catch (e) {
                 console.log(e);
                 if (e.statusCode == 401) {
                     await this.refreshToken();
-                    return this.checkToChange();
                 }
                 return null;
             }

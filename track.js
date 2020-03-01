@@ -3,5 +3,6 @@ module.exports = class Track {
         this.TITLE = title;
         this.AUTHORS = authors;
         this.URI = uri;
+        this.QUEUED = false;
     }
 }

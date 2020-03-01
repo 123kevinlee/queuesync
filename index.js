@@ -87,28 +87,43 @@ app.get('/dashboard', async function (req, res) {
 app.get('/tracks-playing', async function (req,res) {
     let room_code = req.query.room_code;
     let session = findSession(room_code);
-    return session.tracks;
+    if (!session) res.status(400).send("There is no room with that code!");
+    res.send(session.spotify.TRACKS);
 });
 
 app.get('/get-songs', async function (req,res) {
     let room_code = req.query.room_code;
     let query = req.query.query;
     let session = findSession(room_code);
+    if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
     let tracks = await session.spotify.findSongs(query);
+    let parsed_tracks = [];
     for (let i = 0; i < tracks.length; i++) {
-        tracks[i].row = i+1;
+        let artists = null;
+        artists = tracks[i].artists[0].name;
+        for (let j = 0; j < tracks[i].artists.length-1; j++) {
+            artists += ', ' + tracks[i].artists[j].name;
+        }
+        if (tracks[i].artists[1]) artists += ', and ' + tracks[i].artists[tracks[i].artists.length-1].name;
+        parsed_tracks.push({
+            artists: artists,
+            name: tracks[i].name,
+            uri: tracks[i].uri,
+            row: i+1
+        });
     }
-    res.send(tracks);
+    res.send(parsed_tracks);
 });
 
 app.post('/add-song', async function (req,res) {
     let room_code = req.query.room_code;
     let session = findSession(room_code);
+    if (!session) res.status(400).send("There is no room with that code!");
     let title = req.query.title;
     let authors = req.query.authors;
     let uri = req.query.uri;
-    let track = new Track(title, authors, uri);
-    session.TRACKS.add(track);
+    session.addTrack(title, authors, uri);
+    res.status(200).send("Ok!");
 });
 
 function decryptJWT(token) {
