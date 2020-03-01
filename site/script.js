@@ -45,6 +45,31 @@ $(document).ready(function () {
         e.preventDefault();
     });
 
+    async function updatePlaying() {
+        $.ajax({
+            type: "GET",
+            url: "https://queuesync.tech/tracks-playing?room_code=" + code,
+            // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
+            json: true,
+            success: function (result) {
+                //alert("good");
+                var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
+                for (var i = 0; i < 5; i++) {
+                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].name + "</th><th>" + result[i].artists + "</th></tr>";
+                }
+                document.getElementById('current').innerHTML = tableHtml;
+            },
+            error: function (result) {
+                alert('Error');
+            }
+        });
+        sleep(5000);
+    }
+
+    function sleep(ms) {
+        return new Promise(resolve => setTimeout(resolve, ms));
+      }
+
     // $('#search-list').on('click', 'a', function () {
     //     var table = $("search-list");
     //     console.log(table);
