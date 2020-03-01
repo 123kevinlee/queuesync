@@ -45,7 +45,7 @@ app.get('/callback', async function (req, res) {
     session.spotify.setRefreshToken(refresh_token);
     res.cookie('jwt', token);
     sessions.push(session);
-    res.redirect('/dashboard');
+    res.redirect('/dashboard?room_code='+room_code);
 });
 
 app.get('/add', async function (req,res) {
@@ -64,9 +64,10 @@ app.get('/search', async function (req,res) {
 });
 
 app.get('/dashboard', async function (req, res) {
+    let room_code = req.query.room_code;
     let tracks = [];
     res.render(path.join(__dirname, "/site/views/dashboard.ejs"), {
-        code: code,
+        code: room_code,
         tracks: tracks
     });
     // let jwt = req.cookies.jwt;
