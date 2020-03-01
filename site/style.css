@@ -65,6 +65,23 @@ button:hover {
     border: solid #42d97c;
 }
 
+.edit-btn {
+    cursor: pointer;
+    color: #fff;
+    font-weight: 500;
+    width: 200px;
+    padding-left: 30px;
+    padding-right: 30px;
+    padding-top: 12.5px;
+    padding-bottom: 12.5px;
+    border-radius: 600px;
+    margin-bottom: 20px;
+    outline: 0;
+    margin-top: 10px;
+    background-color: #42d97c;
+    border: solid #42d97c;
+}
+
 @-webkit-keyframes gradientBG {
     0% {
         background-position: 0% 50%;
@@ -112,7 +129,8 @@ button:hover {
     border-radius: 600px;
     margin-top: 25px;
     outline: 0;
-    border: none
+    border: none;
+    margin-bottom: 10px;
 }
 
 .code-input {
@@ -136,7 +154,7 @@ button:hover {
 }
 
 .song-list th {
-    padding-right: 25vh;
+    width: 30vh;
 }
 
 .song-list tr {
@@ -155,13 +173,13 @@ button:hover {
 }
 
 .song-list tr th:first-child {
-    padding-left: 1vh;
-    padding-right: 3vh;
+    width: 5vh;
 }
 
 @media screen and (max-width: 680px) {
     .form input {
         width: 200px;
+        padding-right: 15;
     }
 
     .song-list {
@@ -171,7 +189,7 @@ button:hover {
     }
 
     .song-list th {
-        padding-right: 10vh;
+        width: 15vh;
     }
 
     .song-list tr {
@@ -190,7 +208,6 @@ button:hover {
     }
 
     .song-list tr th:first-child {
-        padding-left: 1vh;
-        padding-right: 3vh;
+        width: 4vh;
     }
 }

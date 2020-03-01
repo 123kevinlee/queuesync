@@ -17,16 +17,31 @@
     </script>
 
     <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="table.css">
+    <link rel="stylesheet" href="autocomplete.css">
 </head>
 
 <body>
     <h1 class="header">Queue Sync</h1>
-    <h3 class="header">Your code is: 1234</h3>
-    <form class="form">
+    <h3 class="header">Room code: 1234</h3>
+    <!-- <form class="form">
         <input class="song-input" type="text" name="track-title" placeholder="track title"><br>
-        <button class="join-btn">Add</button>
+        <button class="join-btn" onclick="">Add</button>
+        <br>
+    </form> -->
+
+    <form class="form" autocomplete="off" action="">
+        <div class="autocomplete">
+            <input id="myInput" class="song-input" type="text" name="track-title" placeholder="track title">
+            <button class="join-btn" onclick="">Add</button>
+        </div>
     </form>
+    <script src="autocomplete.js"></script>
+
+
+    <div style="text-align: center;">
+        <button class="edit-btn">Edit</button>
+    </div>
+
     <!-- last col is del button -->
     <table class="song-list">
         <tr class="table-header">
