@@ -205,7 +205,7 @@ module.exports = class Spotify {
 
     async checkToChange() {
         if (this.ACCESS_TOKEN && this.REFRESH_TOKEN) {
-            let track = tracks[0];
+            let track = this.TRACKS[0];
             let url = 'https://api.spotify.com/v1/me/player';
             var options = {
                 url: url,
