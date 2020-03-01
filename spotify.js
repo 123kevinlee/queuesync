@@ -206,23 +206,29 @@ module.exports = class Spotify {
     async checkToChange() {
         if (this.ACCESS_TOKEN && this.REFRESH_TOKEN) {
             let track = this.TRACKS[0];
-            let url = 'https://api.spotify.com/v1/me/player';
+            let url = 'https://api.spotify.com/v1/me/player/currently-playing';
             var options = {
                 url: url,
                 headers: { 'Authorization': 'Bearer ' + this.ACCESS_TOKEN },
                 json: true,
+                form: {
+                    market: 'from_token'
+                }
             };
 
             try {
                 let json = await rp.put(options);
                 let uri = json.context.uri;
                 if (uri != this.CURRENT_URI) {
-                    if (tracks.length > 0) {
+                    if (this.TRACKS.length > 0) {
                         let track = this.TRACKS[0];
                         this.CURRENT_URI = track.URI;
                         this.TRACKS[0].QUEUED = true;
                         this.TRACKS.shift();
-                        await this.queueSong(track.URI);
+                        if (this.TRACKS.length > 1)
+                            await this.queueSong(track.URI);
+                        else
+                            await this.changeSong(track.URI);
                     }
                 }
                 console.log(json);
