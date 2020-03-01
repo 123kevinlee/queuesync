@@ -215,19 +215,22 @@ module.exports = class Spotify {
 
             try {
                 let json = await rp.get(options);
+                if (json.context) {
                 let uri = json.context.uri;
                 if (uri != this.CURRENT_URI) {
                     if (this.TRACKS.length > 0) {
-                        this.TRACKS.shift();
-                        let track = this.TRACKS[1];
-                        this.CURRENT_URI = TRACKS[0].URI;
+                        let track = this.TRACKS[2];
+                        this.CURRENT_URI = TRACKS[1].URI;
                         this.TRACKS[1].QUEUED = true;
-                        if (this.TRACKS.length > 1)
+                        if (this.TRACKS.length > 1) {
+                            this.TRACKS.shift();
                             await this.queueSong(track.URI);
+                        }
                         else
                             await this.changeSong(track.URI);
                     }
                 }
+            }
                 console.log(json);
             } catch (e) {
                 console.log(e);
