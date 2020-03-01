@@ -95,7 +95,7 @@ app.get('/get-songs', async function (req,res) {
     let query = req.query.query;
     let session = findSession(room_code);
     let tracks = await session.spotify.findSongs(query);
-    return tracks;
+    res.send(tracks);
 });
 
 app.post('/add-song', async function (req,res) {
@@ -133,8 +133,8 @@ function makeid(length) {
 }
 
 function findSession(room_code) {
-    for (let session in sessions) {
-        if (session.room_code == room_code) return session;
+    for (let i = 0; i < sessions.length; i++) {
+        if (sessions[i].ROOM_CODE == room_code) return sessions[i];
     }
     return null;
 }
