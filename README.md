@@ -1,4 +1,4 @@
-![Banner Image](https://github.com/123kevinlee/queuesync/blob/master/banner.PNG)]
+![Banner Image](https://github.com/123kevinlee/queuesync/blob/master/banner.PNG)
 <h1>Queue Sync</h1>
 <h2>Inspiration</h2>
 During a long car ride, one person is often designated as "aux."  That person can take suggestions but essentially has total control of the music.  At HackTCNJ, we decided to do something about this so that everyone has a choice in the music!
