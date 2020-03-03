@@ -1,17 +1,17 @@
 function addSong(code, songID, title, authors) {
 
-$.ajax({
-    type: "GET",
-    url: "https://queuesync.tech/add-song?room_code=" + code + "&uri=" + songID + "&title="+ title + "&authors="+ authors,
-    // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
-    json: true,
-    success: function (result) {
-        alert("Sent!");
-    },
-    error: function (result) {
-        alert('Error');
-    }
-});
+    $.ajax({
+        type: "GET",
+        url: "https://queuesync.tech/add-song?room_code=" + code + "&uri=" + songID + "&title=" + title + "&authors=" + authors,
+        // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
+        json: true,
+        success: function (result) {
+            alert("Sent!");
+        },
+        error: function (result) {
+            alert('Error');
+        }
+    });
 
 }
 
@@ -49,36 +49,35 @@ $(document).ready(function () {
         var code = document.getElementById("code").innerText.substring(11);
 
         while (true) {
-        $.ajax({
-            type: "GET",
-            url: "https://queuesync.tech/tracks-playing?room_code=" + code,
-            // url: "https://cors-anywhere.herokuapp.com/https://f9099312.ngrok.io/get-songs?room_code=TeqFDYYd&query=selena",
-            json: true,
-            success: function (result) {
-                //alert("good");
-                result = JSON.parse(result);
+            $.ajax({
+                type: "GET",
+                url: "https://queuesync.tech/tracks-playing?room_code=" + code,
+                json: true,
+                success: function (result) {
+                    //alert("good");
+                    result = JSON.parse(result);
 
-                if (result != undefined && result.length > 0) {
-                var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
-                for (var i = 0; i < result.length; i++) {
-                    tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].TITLE + "</th><th>" + result[i].AUTHORS + "</th></tr>";
+                    if (result != undefined && result.length > 0) {
+                        var tableHtml = "<tr class=\"table-header\"" + "><th></th><th>Track</th><th>Artist</th></tr>";
+                        for (var i = 0; i < result.length; i++) {
+                            tableHtml += "<tr class=\"table-header\"><th>" + (i + 1) + "</th><th>" + result[i].TITLE + "</th><th>" + result[i].AUTHORS + "</th></tr>";
+                        }
+                        document.getElementById('current').innerHTML = tableHtml;
+                    }
+                },
+                error: function (result) {
+                    //alert('Error');
                 }
-                document.getElementById('current').innerHTML = tableHtml;
-            }
-            },
-            error: function (result) {
-                //alert('Error');
-            }
-        });
-        await sleep(5000);
-    }
+            });
+            await sleep(5000);
+        }
     }
 
     updatePlaying();
 
     function sleep(ms) {
         return new Promise(resolve => setTimeout(resolve, ms));
-      }
+    }
 
     // $('#search-list').on('click', 'a', function () {
     //     var table = $("search-list");
