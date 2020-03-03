@@ -16,16 +16,20 @@ app.use(express.static('site/'));
 app.use(express.static('site/partials/'));
 var bodyParser = require('body-parser');
 // in latest body-parser use like below.
-app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.urlencoded({
+    extended: true
+}));
 app.use(bodyParser.json());
 app.use(bodyParser.raw());
 app.get('/', function (req, res) {
     let room_code = req.query.code;
-    if (!room_code)
+    let session = findSession(room_code);
+    if (!room_code || !session || session == null)
         res.sendFile(path.join(__dirname + "/site/landing.html"));
+    //eventually tell user that the room does not exist
     else {
         res.render(path.join(__dirname, "/site/views/add.ejs"), {
-            tracks:[],
+            tracks: [],
             code: room_code
         });
     }
@@ -43,23 +47,26 @@ app.get('/callback', async function (req, res) {
     let json = await session.spotify.getTokens(authorization_code);
     let access_token = json['access_token'];
     let refresh_token = json['refresh_token'];
-    var token = jwt.sign({ access_token: access_token, refresh_token: refresh_token }, private_key);
+    var token = jwt.sign({
+        access_token: access_token,
+        refresh_token: refresh_token
+    }, private_key);
     session.spotify.setAccessToken(access_token);
     session.spotify.setRefreshToken(refresh_token);
     res.cookie('jwt', token);
     sessions.push(session);
-    res.redirect('/dashboard?room_code='+room_code);
+    res.redirect('/dashboard?room_code=' + room_code);
 });
 
-app.get('/add', async function (req,res) {
+app.get('/add', async function (req, res) {
     let room_code = res.locals.code;
     res.render(path.join(__dirname, "/site/views/add.ejs"), {
-        tracks:[],
+        tracks: [],
         code: room_code
     });
 });
 
-app.get('/search', async function (req,res) {
+app.get('/search', async function (req, res) {
     let room_code = req.query.room_code;
     let tracks = [];
     res.render(path.join(__dirname, "/site/views/dashboard.ejs"), {
@@ -89,42 +96,51 @@ app.get('/dashboard', async function (req, res) {
     //     }
 });
 
-app.get('/tracks-playing', async function (req,res) {
+app.get('/tracks-playing', async function (req, res) {
     let room_code = req.query.room_code;
     let session = findSession(room_code);
-    if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
+    if (!session || session == null) {
+        res.status(400).send("There is no room with that code!");
+        return;
+    };
     res.send(JSON.stringify(session.spotify.TRACKS));
 });
 
-app.get('/get-songs', async function (req,res) {
+app.get('/get-songs', async function (req, res) {
     let room_code = req.query.room_code;
     let query = req.query.query;
     let session = findSession(room_code);
-    if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
+    if (!session || session == null) {
+        res.status(400).send("There is no room with that code!");
+        return;
+    };
     let tracks = await session.spotify.findSongs(query);
     let parsed_tracks = [];
     for (let i = 0; i < tracks.length; i++) {
         let artists = null;
         artists = tracks[i].artists[0].name;
-        for (let j = 0; j < tracks[i].artists.length-1; j++) {
+        for (let j = 0; j < tracks[i].artists.length - 1; j++) {
             artists += ', ' + tracks[i].artists[j].name;
         }
-        if (tracks[i].artists[1]) artists += ', and ' + tracks[i].artists[tracks[i].artists.length-1].name;
+        if (tracks[i].artists[1]) artists += ', and ' + tracks[i].artists[tracks[i].artists.length - 1].name;
         parsed_tracks.push({
             artists: artists,
             name: tracks[i].name,
             uri: tracks[i].uri,
-            row: i+1
+            row: i + 1
         });
     }
     res.send(parsed_tracks);
 });
 
-app.get('/add-song', async function (req,res) {
+app.get('/add-song', async function (req, res) {
     let room_code = req.query.room_code;
-    console.log("Room Code: "+ room_code);
+    console.log("Room Code: " + room_code);
     let session = findSession(room_code);
-    if (!session || session == null)  { res.status(400).send("There is no room with that code!"); return;};
+    if (!session || session == null) {
+        res.status(400).send("There is no room with that code!");
+        return;
+    };
     let title = req.query.title;
     let authors = req.query.authors;
     let uri = req.query.uri;
@@ -136,8 +152,7 @@ function decryptJWT(token) {
     try {
         var decoded = jwt.verify(token, private_key);
         return decoded;
-    }
-    catch (e) {
+    } catch (e) {
         console.log(e);
         return null;
     }
@@ -147,11 +162,11 @@ app.listen(80);
 app.listen(443);
 
 function makeid(length) {
-    var result           = '';
-    var characters       = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    var result = '';
+    var characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
     var charactersLength = characters.length;
-    for ( var i = 0; i < length; i++ ) {
-       result += characters.charAt(Math.floor(Math.random() * charactersLength));
+    for (var i = 0; i < length; i++) {
+        result += characters.charAt(Math.floor(Math.random() * charactersLength));
     }
     return result;
 }
@@ -168,4 +183,4 @@ async function checkSessions() {
         await sessions[i].spotify.checkToChange();
     }
 }
-setInterval(checkSessions, 5*1000);
+setInterval(checkSessions, 5 * 1000);
