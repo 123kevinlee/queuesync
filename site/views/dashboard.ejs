@@ -15,34 +15,34 @@
         <input class="song-input" id="songKeywords" type="text" name="track-title" placeholder="Track Title">
         <button class="join-btn" id="search">Search</button>
         <br>
-    </div>
-    <script src="script.js"></script>
+        </form>
+        <script src="script.js"></script>
 
-    <table id="search-list" class="song-list">
-        <tr>
-            <th class="notthere">test</th>
-        </tr>
-    </table>
-
-    <table id="current" class="song-list">
-        <tr class="table-header">
-            <th></th>
-            <th>Track</th>
-            <th>Artist</th>
-        </tr>
-        <tbody>
-
-            <% var trackNum = 0; %>
-            <% tracks.forEach(function(track){ %>
-            <%  trackNum++;%>
+        <table id="search-list" class="song-list">
             <tr>
-                <th><%=trackNum%></th>
-                <th><%= track.title %>
-                <th><%= track.artist %></th>
+                <th class="notthere">test</th>
             </tr>
-            <% }); %>
-        </tbody>
-    </table>
+        </table>
+
+        <table id="current" class="song-list">
+            <tr class="table-header">
+                <th></th>
+                <th>Track</th>
+                <th>Artist</th>
+            </tr>
+            <tbody>
+
+                <% var trackNum = 0; %>
+                <% tracks.forEach(function(track){ %>
+                <%  trackNum++;%>
+                <tr>
+                    <th><%=trackNum%></th>
+                    <th><%= track.title %>
+                    <th><%= track.artist %></th>
+                </tr>
+                <% }); %>
+            </tbody>
+        </table>
 </body>
 
 </html>
