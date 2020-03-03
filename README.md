@@ -10,7 +10,7 @@ The frontend was built with HTML, CSS, and Javascript and the backend was built 
 <p></p>
 <h2>To Do:</h2>
 <ul>
-  <li>Update tracks playing on add page</li>
-  <li>Check for session code when joining a room</li>
+  <li>Update tracks display tracks playing on load, not just after adding</li>
+  <li>Tell user when a room does not exist</li>
   <li>Code Cleanup</li>
 </ul>
