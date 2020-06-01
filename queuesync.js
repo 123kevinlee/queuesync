@@ -40,7 +40,29 @@ app.get('/login', async function (req, res) {
     res.redirect(new Spotify().getOauth2URL());
 });
 
+app.get('/login_mobile', async function (req, res) {
+    res.redirect(new Spotify().getMobileOauth2URL());
+});
+
 app.get('/callback', async function (req, res) {
+    let room_code = makeid(8);
+    let session = new Session(room_code);
+    let authorization_code = req.query.code;
+    let json = await session.spotify.getTokens(authorization_code);
+    let access_token = json['access_token'];
+    let refresh_token = json['refresh_token'];
+    var token = jwt.sign({
+        access_token: access_token,
+        refresh_token: refresh_token
+    }, private_key);
+    session.spotify.setAccessToken(access_token);
+    session.spotify.setRefreshToken(refresh_token);
+    res.cookie('jwt', token);
+    sessions.push(session);
+    res.redirect('/dashboard?room_code=' + room_code);
+});
+
+app.get('/callback_mobile', async function (req, res) {
     let room_code = makeid(8);
     let session = new Session(room_code);
     let authorization_code = req.query.code;

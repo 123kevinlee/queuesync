@@ -49,6 +49,11 @@ module.exports = class Spotify {
         return url;
     }
 
+    getMobileOauth2URL() {
+        let url = `https://accounts.spotify.com/authorize?response_type=code&client_id=${this.CLIENT_ID}&scope=${encodeURIComponent(this.SCOPES)}&redirect_uri=${encodeURIComponent(this.MOBILE_REDIRECT_URI)}`;
+        return url;
+    }
+
     getAuthorizationURL(authorization_code) {
         let url = ``;
         return url;
