@@ -15,6 +15,29 @@ module.exports = class Spotify {
         this.TRACKS = [];
     }
 
+    authenticate_self() {
+        let url = 'https://accounts.spotify.com/api/token';
+
+        var authOptions = {
+            url: 'https://accounts.spotify.com/api/token',
+            form: {
+                code: authorization_code,
+                redirect_uri: this.REDIRECT_URI,
+                grant_type: 'client_credentials'
+            },
+            headers: {
+                'Authorization': 'Basic ' + this.ENCODED,
+            },
+            json: true
+        };
+
+        let json = await rp.post(authOptions).catch(e => console.log(e));
+        //let json = JSON.parse(jsonU);
+        console.log(json);
+        this.setAccessToken(json.access_token);
+        return json;
+    }
+
     setAccessToken(access_token) {
         this.ACCESS_TOKEN = access_token;
     }

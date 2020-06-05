@@ -36,6 +36,12 @@ app.get('/', function (req, res) {
 });
 app.set('view engine', 'ejs');
 
+app.get('/app_songs', async function(req, res) {
+    let q = req.query.query;
+    let songs = Spotify.query(q);
+    res.send(songs);
+});
+
 app.get('/login', async function (req, res) {
     res.redirect(new Spotify().getOauth2URL());
 });
@@ -205,4 +211,6 @@ async function checkSessions() {
         await sessions[i].spotify.checkToChange();
     }
 }
+
+Spotify.authenticate_self();
 setInterval(checkSessions, 5 * 1000);
