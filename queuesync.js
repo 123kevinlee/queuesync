@@ -42,7 +42,7 @@ app.set('view engine', 'ejs');
 app.get('/app_songs', async function(req, res) {
     let q = req.query.query;
     let songs = await spot.findSongs(q);
-    res.send(songs);
+    res.send(JSON.stringify(songs));
 });
 
 app.get('/login', async function (req, res) {
