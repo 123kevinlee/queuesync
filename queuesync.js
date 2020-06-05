@@ -41,7 +41,7 @@ app.set('view engine', 'ejs');
 
 app.get('/app_songs', async function(req, res) {
     let q = req.query.query;
-    let songs = await spot.query(q);
+    let songs = await spot.findSongs(q);
     res.send(songs);
 });
 
