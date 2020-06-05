@@ -11,6 +11,9 @@ const Track = require('./track');
 const Session = require('./session');
 let sessions = [];
 
+let spot = new Spotify();
+spot.authenticate_self();
+
 app.use(cookieParser());
 app.use(express.static('site/'));
 app.use(express.static('site/partials/'));
@@ -38,7 +41,7 @@ app.set('view engine', 'ejs');
 
 app.get('/app_songs', async function(req, res) {
     let q = req.query.query;
-    let songs = await Spotify.query(q);
+    let songs = await spot.query(q);
     res.send(songs);
 });
 
@@ -212,5 +215,4 @@ async function checkSessions() {
     }
 }
 
-Spotify.authenticate_self();
 setInterval(checkSessions, 5 * 1000);
