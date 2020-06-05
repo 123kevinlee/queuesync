@@ -31,7 +31,7 @@ module.exports = class Spotify {
 
         let json = await rp.post(authOptions).catch(e => console.log(e));
         //let json = JSON.parse(jsonU);
-        console.log(json);
+        //console.log(json);
         this.setAccessToken(json.access_token);
         return json;
     }
