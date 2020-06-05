@@ -21,8 +21,6 @@ module.exports = class Spotify {
         var authOptions = {
             url: 'https://accounts.spotify.com/api/token',
             form: {
-                code: authorization_code,
-                redirect_uri: this.REDIRECT_URI,
                 grant_type: 'client_credentials'
             },
             headers: {
