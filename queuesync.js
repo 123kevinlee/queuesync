@@ -38,7 +38,7 @@ app.set('view engine', 'ejs');
 
 app.get('/app_songs', async function(req, res) {
     let q = req.query.query;
-    let songs = Spotify.query(q);
+    let songs = await Spotify.query(q);
     res.send(songs);
 });
 

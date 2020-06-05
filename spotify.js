@@ -15,7 +15,7 @@ module.exports = class Spotify {
         this.TRACKS = [];
     }
 
-    authenticate_self() {
+    async authenticate_self() {
         let url = 'https://accounts.spotify.com/api/token';
 
         var authOptions = {
