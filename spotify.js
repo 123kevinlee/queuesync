@@ -126,7 +126,7 @@ module.exports = class Spotify {
         } catch (e) {
             console.log(e);
             if (e.statusCode == 401) {
-                await this.refreshToken();
+                await this.authenticate_self();
                 return this.query(path, form)
             }
             return null;
